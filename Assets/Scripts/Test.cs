@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,15 +20,17 @@ public class Test : MonoBehaviour
         buttonEventParameters.interactable = false;
         buttonEventParameters.onClick.AddListener(() => {
             Dictionary<string, object> eventParams = new Dictionary<string, object>();
-            _manager.SendCustomEvent("Event_params", eventParams, 42);
+            eventParams["valeur"] = 42;
+            _manager.SendCustomEvent("Event_params", eventParams);
         });
 
         buttonEventFull.interactable = false;
         buttonEventFull.onClick.AddListener(() => {
             Dictionary<string, object> eventParams = new Dictionary<string, object>();
             eventParams["nom"] = "toto";
+            eventParams["value"] = 12;
 
-            _manager.SendCustomEvent("Event_full", eventParams, 12);
+            _manager.SendCustomEvent("Event_full", eventParams);
         });
 
         _manager.Initialize(OnServicesInitialized);

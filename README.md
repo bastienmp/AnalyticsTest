@@ -1,6 +1,6 @@
 # AnalyticsTest
 Le temps que vous avez passé sur ce projet.
-5h
+4h
 
 Vos choix techniques / architecturaux.
 - Puisqu'il met demandé de pouvoir intégrer rapidement d'autres services, sans pour autant modifier le code dans le gameplay, j'ai rapidement choisi d'utiliser une interface, qui pourront être utilisée en standalone si il le faut, ainsi qu un "manager" qui permet de gérer plusieurs services facilement.

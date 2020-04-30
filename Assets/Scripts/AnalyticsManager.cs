@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class AnalyticsManager
@@ -23,7 +21,7 @@ public class AnalyticsManager
     private Action _initCallback = null;
 
     /// <summary>
-    /// 
+    /// Initialize the services
     /// </summary>
     /// <param name="callback">Callback called when the services are initialized</param>
     /// <param name="services">Array of services to Initialize, if null or empty, all the services available will be initialize</param>
@@ -53,11 +51,11 @@ public class AnalyticsManager
 
         foreach (KeyValuePair<Service, IAnalytics> serviceIte in _services)
         {
-            serviceIte.Value.Initialize(() => { onInitialized(serviceIte.Key); });
+            serviceIte.Value.Initialize(() => { OnInitialized(serviceIte.Key); });
         }
     }
 
-    private void onInitialized(Service serviceInitialized)
+    private void OnInitialized(Service serviceInitialized)
     {
         _servicesState[serviceInitialized] = ServiceState.INITIALIZED;
 
@@ -74,7 +72,10 @@ public class AnalyticsManager
     /// <summary>
     /// Send an event to the designed analytics services.
     /// </summary>
-    /// <param name="service">The services to send the event to</param>
+    /// <param name="eventName">Name of the event</param>
+    /// <param name="eventParameters">Parameters of the event (not fully supported by all services)</param>
+    /// <param name="computeValue">Amount to be aggregated into all events of this eventName, and it will be reported as cumulative and/or average value of this amount</param>
+    /// <param name="services">The services to send the event to, if null or empty, all the services available will be initialize</param>
     public void SendCustomEvent(string eventName, Dictionary<string, object> eventParameters = null, float? computeValue = null, Service[] services = null)
     {
         if (services == null || services.Length == 0)
