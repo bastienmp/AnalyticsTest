@@ -16,24 +16,21 @@ public class Test : MonoBehaviour
     {
         buttonEventParameterless.interactable = false;
         buttonEventParameterless.onClick.AddListener(() => {
-            _manager?.SendEvent("Event_parameterless");
+            _manager.SendCustomEvent("Event_parameterless");
         });
 
         buttonEventParameters.interactable = false;
         buttonEventParameters.onClick.AddListener(() => {
             Dictionary<string, object> eventParams = new Dictionary<string, object>();
-            eventParams["valeur"] = 42;
-
-            _manager?.SendEvent("Event_params", eventParams);
+            _manager.SendCustomEvent("Event_params", eventParams, 42);
         });
 
         buttonEventFull.interactable = false;
         buttonEventFull.onClick.AddListener(() => {
             Dictionary<string, object> eventParams = new Dictionary<string, object>();
-            eventParams["value"] = 12;
             eventParams["nom"] = "toto";
 
-            _manager?.SendEvent("Event_full", eventParams);
+            _manager.SendCustomEvent("Event_full", eventParams, 12);
         });
 
         _manager.Initialize(OnServicesInitialized);

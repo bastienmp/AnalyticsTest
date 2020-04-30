@@ -39,10 +39,10 @@ public class AnalyticsManager
             switch (services[i])
             {
                 case Service.FACEBOOK:
-                    _services.Add(services[i], new FacebookAnalytics());
+                    _services.Add(services[i], new FacebookAnalyticsImpl());
                     break;
                 case Service.GAME_ANALYTICS:
-                    _services.Add(services[i], new GameAnalytics());
+                    _services.Add(services[i], new GameAnalyticsImpl());
                     break;
                 default:
                     Debug.LogError("AnalyticsManager::Initialize: Missing initialize code for " + services[i] + ".");
@@ -75,14 +75,14 @@ public class AnalyticsManager
     /// Send an event to the designed analytics services.
     /// </summary>
     /// <param name="service">The services to send the event to</param>
-    public void SendEvent(string eventName, Dictionary<string, object> eventParameters = null, Service[] services = null)
+    public void SendCustomEvent(string eventName, Dictionary<string, object> eventParameters = null, float? computeValue = null, Service[] services = null)
     {
         if (services == null || services.Length == 0)
             services = (Service[])Enum.GetValues(typeof(Service));
 
         for (int i = 0; i < services.Length; i++)
         {
-            _services[services[i]].SendEvent(eventName, eventParameters);
+            _services[services[i]].SendCustomEvent(eventName, eventParameters, computeValue);
         }
     }
 }
